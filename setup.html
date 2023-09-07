@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+    <title>Setup | ug4.github.io</title>
+    <meta name="generator" content="Jekyll v4.2.2" />
+    <meta property="og:title" content="Setup" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="description" content="ughub" />
+    <meta property="og:description" content="ughub" />
+    <link rel="canonical" href="http://www.ug4.github.io/setup" />
+    <meta property="og:url" content="http://www.ug4.github.io/setup" />
+    <meta property="og:site_name" content="ug4.github.io" />
+    <meta property="og:type" content="article" />
+    <meta
+      property="article:published_time"
+      content="2023-09-07T13:52:39+00:00"
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta property="twitter:title" content="Setup" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "dateModified": "2023-09-07T13:52:39+00:00",
+        "datePublished": "2023-09-07T13:52:39+00:00",
+        "description": "ughub",
+        "headline": "Setup",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "http://www.ug4.github.io/setup"
+        },
+        "url": "http://www.ug4.github.io/setup"
+      }
+    </script>
+    <!-- End Jekyll SEO tag -->
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <link rel="icon" type="image/png" href="/favicon.ico" />
+
+    <title>Setup - ug4.github.io</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="ug-navbar">
+        <div class="container px-3">
+          <nav class="navbar navbar-expand-lg py-0 px-2">
+            <div class="position-relative p-0">
+              <a class="navbar-brand" href="/">ug4</a>
+              <button
+                class="navbar-toggler position-absolute"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span class="navbar-toggler-icon"></span>
+              </button>
+            </div>
+            <div class="container p-0">
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav nav-fill w-100">
+                  <li class="nav-item ug-nav-item">
+                    <a class="nav-link" href="/">About</a>
+                  </li>
+
+                  <li class="nav-item ug-nav-item active">
+                    <a class="nav-link active" aria-current="page" href="/setup"
+                      >Setup</a
+                    >
+                  </li>
+
+                  <li class="nav-item ug-nav-item">
+                    <a class="nav-link" href="/examples">Examples</a>
+                  </li>
+
+                  <li class="nav-item ug-nav-item dropdown">
+                    <a
+                      class="nav-link ug-nav-item dropdown-toggle"
+                      href="#"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Tutorials
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <a class="dropdown-item" href="/tutorials/scripting"
+                          >Lua Scripting</a
+                        >
+                      </li>
+
+                      <li>
+                        <a class="dropdown-item" href="/tutorials/python"
+                          >Python Scripting</a
+                        >
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li class="nav-item ug-nav-item">
+                    <a class="nav-link" href="/docs">Documentation</a>
+                  </li>
+
+                  <li class="nav-item ug-nav-item">
+                    <a class="nav-link" href="/development">Development</a>
+                  </li>
+
+                  <li class="nav-item ug-nav-item">
+                    <a class="nav-link" href="/publications">Publications</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <div class="container py-3">
+      <div class="container px-2 py-2">
+        <h1>Setup</h1>
+        <h1 id="ughub">ughub</h1>
+
+        <p>
+          <em>ughub</em> allows to easily install all the different plugins and
+          applications that are built on top of
+          <a href="https://github.com/UG4">UG4</a>. It automatically handles
+          inter-package dependencies and helps in managing the different
+          involved git repositories.
+        </p>
+
+        <h1 id="contents">Contents</h1>
+        <p>
+          This document should give a broad overview on how to obtain and
+          install <strong>ughub</strong> and how to use it to obtain
+          <strong>UG4</strong>. It also provides a brief introduction on how to
+          build UG4.
+        </p>
+
+        <ul>
+          <li><a href="#installation">Installation</a></li>
+          <li><a href="#first-steps">First Steps</a></li>
+          <li><a href="#compilation-of-ug4">Compilation of UG4</a></li>
+        </ul>
+
+        <p><a href="#prerequisites">Prerequisites</a></p>
+
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button
+              class="nav-link"
+              id="linux-tab"
+              data-bs-target=".first"
+              data-bs-toggle="tab"
+              role="tab"
+              aria-controls="first"
+              aria-selected="false"
+            >
+              Mac/Linux
+            </button>
+            <button
+              class="nav-link active"
+              id="windows-tab"
+              data-bs-target=".second"
+              data-bs-toggle="tab"
+              role="tab"
+              aria-controls="second"
+              aria-selected="true"
+            >
+              Windows
+            </button>
+          </div>
+        </nav>
+        <div class="tab-content" id="SetupTabA">
+          <div
+            class="tab-pane fade first"
+            id="panel_a_first"
+            role="tabpanel"
+            aria-labelledby="linux-tab"
+          >
+            <h1 id="installation">Installation</h1>
+
+            <section id="prerequisites">
+              ## Prerequisites ### Terminal / Shell **Mac-OSX** and **Linux**
+              (**Unix**) users should be able to use their default terminal
+              application to execute the commands below. ### Python ughub
+              requires _**Python**_ to run (at least version 2.6 should be
+              available, higher is recommended). Please make sure that python is
+              installed by executing the following command: python --version If
+              it is not yet installed, please do one of the following: As a
+              Linux user, use your package manager to install it, e.g.: sudo
+              apt-get install python Mac users can download an installer from
+              &lt;https://www.python.org/downloads/release&gt; (e.g. Python 2.7
+              or the latest Python 3 installer) ### Git Please also make sure
+              that _**git**_ is installed on your system and that it can be
+              invoked from your terminal or shell. ### CMake You will need
+              _**cmake_** to generate the build files for your compiler. On Unix
+              systems you may install cmake using your package manager: sudo
+              apt-get install cmake For OSX you may download an installer at
+              &lt;https://cmake.org/&gt;.
+            </section>
+
+            <h2 id="downloading-ughub">Downloading ughub</h2>
+            <p>
+              Please clone the github repository, e.g. by executing the
+              following commands:
+            </p>
+
+            <div class="language-plaintext highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight"><code>cd $HOME
+git clone https://github.com/UG4/ughub
+</code></pre>
+              </div>
+            </div>
+
+            <p>
+              This will download ughub to <em>$HOME/ughub</em>. You may of
+              course clone the repository to any other location. Simply replace
+              <em>$HOME/ughub</em> with your path for the remainder of this
+              introduction.
+            </p>
+
+            <p>
+              Please make sure to update your ughub installation from time to
+              time by executing
+            </p>
+
+            <div class="language-plaintext highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight"><code>cd $HOME/ughub
+git pull
+</code></pre>
+              </div>
+            </div>
+
+            <h2 id="installing-ughub">Installing ughub</h2>
+            <p>
+              ughub should run out of the box. However, in order to execute it
+              from any path, you should either edit your PATH environment
+              variable by adding the following line to your $HOME/.bash_profile
+              or $HOME/.bashrc file
+            </p>
+
+            <div class="language-plaintext highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight"><code>export PATH=$PATH:$HOME/ughub
+</code></pre>
+              </div>
+            </div>
+
+            <p>
+              or create a link to $HOME/ughub/ughub from within a path which is
+              already contained in your PATH variable, e.g., like this
+            </p>
+
+            <div class="language-plaintext highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight"><code>cd $HOME/bin
+ln -s $HOME/ughub/ughub ughub
+</code></pre>
+              </div>
+            </div>
+
+            <p>
+              If you choose to edit your PATH variable, please make sure to
+              reload your .bash_profile or .bashrc files, e.g.:
+            </p>
+
+            <div class="language-plaintext highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight"><code>source $HOME/.bash_profile
+</code></pre>
+              </div>
+            </div>
+
+            <p>
+              If you are interested in using auto-completion (in bash) while
+              using ughub, add the following additional line to your
+              $HOME/.bash_profile or $HOME/.bashrc file
+            </p>
+
+            <div class="language-plaintext highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code>source $HOME/ughub/autocompletions/ughub-completion.bash
+</code></pre>
+              </div>
+            </div>
+
+            <p>
+              and reload the file. Alternatively, you can place this line in
+              ‘~/.bash_completion’. To use this in zsh, you need to use
+              bashcompinit, see
+              <a href="https://stackoverflow.com/a/8492043">here</a>.
+              Autocomplete is also available for fish. To use this, copy
+              ‘autocompletions/ughub-completion.fish’ to
+              ‘~/.config/fish/completions/ughub.fish’ (and reload your fish
+              instance).
+            </p>
+
+            <h3 id="unix">Unix</h3>
+            <p>
+              In order to build UG4, you’ll need a C++ compiler (e.g. g++ or
+              clang) and cmake.
+            </p>
+
+            <h3 id="windows">Windows</h3>
+            <p>
+              The Microsoft Visual C++ compiler is recommended for compilation
+              of ug4 on windows. It can be downloaded as part of the free
+              “Express 2015 for Windows Desktop” edition of Visual Studio (<a
+                href="https://www.visualstudio.com/downloads/#visual-studio-express-2015-for-windows-desktop"
+                >download here</a
+              >).
+            </p>
+
+            <p>
+              To allow for parallel compilation in the terminal one can
+              optionally use the tool <a href="https://wiki.qt.io/Jom">jom</a>.
+              Extract it and add the path in which the executable lies to your
+              Path environment variable.
+            </p>
+
+            <h2 id="preparations-unix">Preparations (Unix)</h2>
+            <p>
+              Before compiling UG4 on Unix, please add the following line to
+              your $HOME/.bashrc or $HOME/.bash_profile file:
+            </p>
+
+            <div class="language-plaintext highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code>source $HOME/ug4/ugcore/scripts/shell/ugbash
+</code></pre>
+              </div>
+            </div>
+
+            <p>and reload your .bashrc or .bash_profile files, e.g.:</p>
+
+            <div class="language-plaintext highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight"><code>source $HOME/.bash_profile
+</code></pre>
+              </div>
+            </div>
+
+            <p>This feature is not yet supported for Windows.</p>
+
+            <h2 id="setting-up-the-build-directory">
+              Setting up the build directory
+            </h2>
+            <p>First create a build directory:</p>
+
+            <div class="language-plaintext highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight"><code>cd $HOME/ug4
+mkdir build
+cd build
+</code></pre>
+              </div>
+            </div>
+
+            <p>On <strong>Unix</strong> simply run cmake:</p>
+
+            <div class="language-plaintext highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight"><code>cmake -DCMAKE_BUILD_TYPE=Release ..
+</code></pre>
+              </div>
+            </div>
+
+            <p>
+              On <strong>Windows</strong> make sure that you’re running the
+              <em>VS2015 x64 Command Prompt</em> (or similar).
+            </p>
+
+            <p>In order to initialize your build please run</p>
+
+            <div class="language-plaintext highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code> cmake -G "NMake Makefiles JOM" -DCMAKE_BUILD_TYPE=Release -DSTATIC_BUILD=ON .. or
+
+cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Release -DSTATIC_BUILD=ON ..
+</code></pre>
+              </div>
+            </div>
+
+            <p>
+              depending on whether you installed JOM or not. Alternatively one
+              could also generate Visual Studio Project files. However, this
+              option is not discussed further in this introduction.
+            </p>
+
+            <p>
+              Note that static linking should be enabled by default on Windows.
+              If you’d like to build a dynamic library, please have a look at
+              ug4’s documentation.
+            </p>
+
+            <h2 id="configuring-your-build">Configuring your build</h2>
+            <p>
+              Each time you’ll execute cmake on your ug4 folder, a list of
+              installed plugins will be shown. In order to activate an installed
+              plugin, specify the cmake option -DPLUGIN_NAME=ON, e.g.:
+            </p>
+
+            <div class="language-plaintext highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight"><code>cmake -DConvectionDiffusion=ON .
+</code></pre>
+              </div>
+            </div>
+
+            <p>
+              You may also activate or deactivate all installed plugins at once:
+            </p>
+
+            <div class="language-plaintext highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight"><code>cmake -DENABLE_ALL_PLUGINS=ON .
+cmake -DDISABLE_ALL_PLUGINS=ON .
+</code></pre>
+              </div>
+            </div>
+
+            <p>
+              Some options speed up compilation considerably. E.g. if you only
+              consider problems in two and three dimensional space and only need
+              scalar matrix coefficients, you may use the following cmake
+              options:
+            </p>
+
+            <div class="language-plaintext highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight"><code>cmake -DDIM="2;3" -DCPU=1 .
+</code></pre>
+              </div>
+            </div>
+
+            <p>
+              CMake only prepares the build-settings. To actually build UG4
+              you’ll have to execute the build command.
+            </p>
+
+            <p>On <strong>Unix</strong> execute, e.g.:</p>
+
+            <div class="language-plaintext highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight"><code>make -j2
+</code></pre>
+              </div>
+            </div>
+
+            <p>On <strong>Windows</strong> execute, e.g.:</p>
+
+            <div class="language-plaintext highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight"><code>jom
+</code></pre>
+              </div>
+            </div>
+
+            <p>or</p>
+
+            <div class="language-plaintext highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight"><code>nmake
+</code></pre>
+              </div>
+            </div>
+
+            <p>
+              depending on which type of generator you used in your first call
+              to cmake.
+            </p>
+          </div>
+          <div
+            class="tab-pane fade show active second"
+            id="panel_a_second"
+            role="tabpanel"
+            aria-labelledby="windows-tab"
+          >
+            <h1 id="installation">Installation</h1>
+            <h2 id="prerequisites">Prerequisites</h2>
+
+            <h3 id="terminal--shell">Terminal / Shell</h3>
+
+            <p>
+              <strong>Windows</strong> users may use the pre-installed command
+              line tool <em><strong>cmd.exe</strong></em
+              >. If you’re using ‘Microsoft Visual Studio’ you may instead use
+              the ‘VS2015 x64 Command Prompt’ (64bit) or the ‘VS2013 x86 Command
+              Prompt’ (32bit) (or similar). Both can be found in
+            </p>
+
+            <div class="language-plaintext highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code>'Start -&gt; All Programs -&gt; Visual Studio 2015'.
+</code></pre>
+              </div>
+            </div>
+
+            <p>
+              If you’re using Windows, Please replace $HOME with %HOMEPATH% for
+              the remainder of this introduction.
+            </p>
+
+            <h3 id="python">Python</h3>
+            <p>
+              ughub requires <em><strong>Python</strong></em> to run (at least
+              version 2.6 should be available, higher is recommended). Please
+              make sure that python is installed by executing the following
+              command:
+            </p>
+
+            <div class="language-plaintext highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight"><code>py --version
+</code></pre>
+              </div>
+            </div>
+
+            <p>
+              If it is not yet installed, download an installer from
+              <a href="https://www.python.org/downloads/release"
+                >https://www.python.org/downloads/release</a
+              >
+              (e.g. Python 2.7 or the latest Python 3 installer)
+            </p>
+
+            <h3 id="git">Git</h3>
+            <p>
+              Please also make sure that <em><strong>git</strong></em> is
+              installed on your system and that it can be invoked from your
+              terminal or shell.
+            </p>
+
+            <h3 id="cmake">CMake</h3>
+            <p>
+              You will need _<strong>cmake_</strong> to generate the build files
+              for your compiler. You may download an installer at
+              <a href="https://cmake.org/">https://cmake.org/</a>.
+            </p>
+
+            <h2 id="downloading-ughub">Downloading ughub</h2>
+            <p>
+              Please clone the github repository, e.g. by executing the
+              following commands:
+            </p>
+
+            <div class="language-plaintext highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight"><code>cd $HOME
+git clone https://github.com/UG4/ughub
+</code></pre>
+              </div>
+            </div>
+
+            <p>
+              This will download ughub to <em>$HOME/ughub</em>. You may of
+              course clone the repository to any other location. Simply replace
+              <em>$HOME/ughub</em> with your path for the remainder of this
+              introduction.
+            </p>
+
+            <p>
+              Please make sure to update your ughub installation from time to
+              time by executing
+            </p>
+
+            <div class="language-plaintext highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight"><code>cd $HOME/ughub
+git pull
+</code></pre>
+              </div>
+            </div>
+
+            <h2 id="installing-ughub-windows">Installing ughub (Windows)</h2>
+            <p>
+              ughub should run out of the box on Windows too. However, in order
+              to execute it from any path, you should add
+            </p>
+
+            <div class="language-plaintext highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight"><code>$HOME/ughub
+</code></pre>
+              </div>
+            </div>
+
+            <p>
+              to your <em><strong>Path</strong></em> environment variable
+              (replace $HOME with the actual path). In order to do so, enter
+            </p>
+
+            <div class="language-plaintext highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight"><code>SystemPropertiesAdvanced
+</code></pre>
+              </div>
+            </div>
+
+            <p>
+              in your shell. This opens the <em>System Properties</em> dialog
+              and highlights the <em>Advanced</em> tab. Click the
+              <em>Environment Variables</em> button at the bottom of the dialog.
+              This opens a dialog which lets you edit the
+              <em><strong>Path</strong></em> variable. Note that paths are
+              separated by a semicolon ‘;’. If the old value of your Path
+              variable was <em>SomePaths</em>, the new content should look
+              somewhat like this:
+            </p>
+
+            <div class="language-plaintext highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight"><code>SomePaths;C:\Users\YOURNAME\ughub
+</code></pre>
+              </div>
+            </div>
+
+            <p>
+              When you’re done, press ‘OK’ to close the dialog. Make sure to
+              restart your Shell in order to apply the changes.
+            </p>
+
+            <p>
+              Autocompletion on windows only works in powershell. To use it, add
+              the line
+            </p>
+
+            <div class="language-plaintext highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code>C:\Users\YOURNAME\ughub\autocompletions\ughub-completion.ps1
+</code></pre>
+              </div>
+            </div>
+
+            <p>to the file (you might need to create it)</p>
+
+            <div class="language-plaintext highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code>C:\Users\YOURNAME\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1
+</code></pre>
+              </div>
+            </div>
+
+            <p>
+              If you wish to use it, you need to
+              <a
+                href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7"
+                >allow powershell scripts to execute</a
+              >. Execute the following in an PowerShell session executed as
+              Administrator:
+            </p>
+
+            <div class="language-plaintext highlighter-rouge">
+              <div class="highlight">
+                <pre
+                  class="highlight"
+                ><code>Set-ExecutionPolicy -ExecutionPolicy Unrestricted
+</code></pre>
+              </div>
+            </div>
+
+            <p>
+              Take a look at
+              <a
+                href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles?view=powershell-7#profiles-and-execution-policy"
+                >this</a
+              >
+              to learn about powershell profiles and execution policy.
+            </p>
+          </div>
+        </div>
+
+        <h1 id="first-steps">First steps</h1>
+        <p>
+          ughub serves as a package management tool for the UG4 simulation
+          framework. Use the following command to get some help on ughub’s
+          usage:
+        </p>
+
+        <div class="language-plaintext highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code>ughub help
+</code></pre>
+          </div>
+        </div>
+
+        <p>
+          One typically starts by creating a directory into which all UG4
+          related packages shall be installed (again, the exact path is
+          arbitrary):
+        </p>
+
+        <div class="language-plaintext highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code>cd $HOME
+mkdir ug4
+</code></pre>
+          </div>
+        </div>
+
+        <p>Now we can initialize this directory for usage with ughub:</p>
+
+        <div class="language-plaintext highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code>cd $HOME/ug4
+ughub init
+</code></pre>
+          </div>
+        </div>
+
+        <p>
+          This creates a local CMakeLists.txt file and creates a hidden folder
+          ‘.ughub’ in which package-sources are maintained. All further calls to
+          ughub from within the directory tree located at $HOME/ug4 will now
+          relate to this main directory. To view a list of available packages,
+          execute
+        </p>
+
+        <div class="language-plaintext highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code>ughub list
+</code></pre>
+          </div>
+        </div>
+
+        <p>
+          or ‘ughub listpackages’. Which and how many packages are displayed
+          depends on the registered package-sources. To view all registered
+          sources execute
+        </p>
+
+        <div class="language-plaintext highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code>ughub listsources
+</code></pre>
+          </div>
+        </div>
+
+        <p>
+          To install a package, simply execute ‘ughub install’ with one or more
+          of the available packages:
+        </p>
+
+        <div class="language-plaintext highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code>ughub install Examples
+</code></pre>
+          </div>
+        </div>
+
+        <p>Dependent packages will now be automatically installed.</p>
+
+        <p>
+          In order to add new package-sources, ughub provides the command
+          ‘addsource’. Theoretically, anybody can create new package-sources and
+          host them e.g. on github. UG4’s public package-source is hosted at
+        </p>
+
+        <p>https://github.com/UG4/ug4-packages</p>
+
+        <p>
+          This is ughub’s default source and always registered upon execution of
+          ‘ughub init’. Feel free to clone it, to add your publicly available
+          packages and to place a merge request.
+        </p>
+
+        <h1 id="compilation-of-ug4">Compilation of UG4</h1>
+        <p>
+          For a more detailed introduction to ug4’s build settings and to ug4 in
+          general, please also refer to ug4’s manual:
+        </p>
+
+        <p>http://ug4.github.io/docs</p>
+
+        <h2 id="prerequisites">Prerequisites</h2>
+
+        <div class="tab-content" id="SetupTabB">
+          <div
+            class="tab-pane fade first"
+            id="panel_b_first"
+            role="tabpanel"
+            aria-labelledby="linux-tab"
+          >
+            B First
+          </div>
+          <div
+            class="tab-pane fade show active second"
+            id="panel_b_second"
+            role="tabpanel"
+            aria-labelledby="windows-tab"
+          >
+            B Second
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="ug-footer">
+      <div class="container px-1">
+        <div class="row justify-content-between">
+          <div class="col-lg-4 order-lg-2">
+            <p class="footer-text">
+              <a class="cf-a" href="/imprint">Imprint</a> |
+              <a class="cf-a" href="/privacy">Privacy Declaration</a>
+            </p>
+          </div>
+          <div class="col-lg-8 order-lg-1">
+            <p class="copyright-text">
+              &copy 2009-2023 - Goethe Center for Scientific Computing, G-CSC,
+              Goethe University Frankfurt
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <script src="/assets/js/bootstrap.bundle.min.js"></script>
+
+      <script src="/assets/js/tabs.js"></script>
+    </footer>
+  </body>
+</html>
