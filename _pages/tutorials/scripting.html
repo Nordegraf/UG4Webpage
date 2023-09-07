@@ -1,0 +1,33 @@
+---
+title: Tutorials
+layout: title
+---
+
+<p>
+    These lessons will give a step by step introduction to the commands, the classes and the general functionality available in ug4's scripting facility.
+</p>
+
+<p>The files for these tutorials can be found in the Tutorial app.</p>
+
+<ul>
+    {% assign sorted = site.lua_tutorials | sort: 'number' %}
+    {{ sorted.number }}
+    {% for tut in sorted %}
+        <li>
+            <a href="{{ tut.url }}">{{ tut.title }}</a>
+            <p>{{ tut.brief }}</p>
+        </li>
+    {% endfor %}
+</ul>
+
+<p>
+    More information about scripting is given here:
+</p>
+<ul>
+    <li>
+        <a href="http://ug4.github.io/docs/page_lua_script.html">Provided LUA Scripts</a>
+    </li>
+    <li>
+        <a href="http://ug4.github.io/docs/page_u_g4_shell.html">ugshell</a>
+    </li>
+</ul>

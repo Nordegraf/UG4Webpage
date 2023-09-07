@@ -1,0 +1,17 @@
+---
+title: Examples
+layout: title
+---
+
+<ul>
+    <ul>
+        {% assign sorted = site.lua_examples | sort: 'number' %}
+        {{ sorted.number }}
+        {% for exp in sorted %}
+            <li>
+                <a href="{{ exp.url }}">{{ exp.title }}</a>
+                <p>{{ exp.brief }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</ul>

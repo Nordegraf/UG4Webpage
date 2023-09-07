@@ -1,0 +1,119 @@
+---
+layout: default
+---
+
+<div class="container front ugbanner">
+  <div id="Banner" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      {% for banner in site.data.banner %}
+      <button type="button" data-bs-target="#Banner" data-bs-slide-to="{{ forloop.index0 }}"
+        aria-label="{{ banner.description }}" {% if forloop.first %} class="active" aria-current="true" {% endif
+        %}></button>
+      {% endfor %}
+    </div>
+    <div class="carousel-inner ug-carousel-inner">
+
+      {% for banner in site.data.banner %}
+      <div class="carousel-item {% if forloop.first %} active {% endif %}" data-bs-interval="9000">
+        <img class="d-block w-100 banner rounded" src="{{ banner.img | relative_url }}" alt={{ banner.alt }}>
+        <div class="carousel-caption d-block d-print-block">
+          <span>{{ banner.description }}</span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#Banner" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#Banner" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+
+<p class="ugabout">
+  ug4 is a simulation framework, targeted at the solution of differential equations on unstructured hybrid grids in 1, 2
+  and 3 dimensions on systems reaching from laptops to massively parallel systems. ug4 is written in C++, striving for a
+  flexible, yet fast and robust simulation environment.
+</p>
+
+<hr>
+
+<h5>Some core features are:</h5>
+
+<ul>
+  <li>Efficient parallel solvers: Iterative Solvers, Preconditioners, Geometric and Algebraic Multgrid, Sparse LU
+    Decomposition and more.</li>
+  <li>A flexible discretization module, allowing to freely couple equations, input and output parameters, even on
+    scripting level.</li>
+  <li>An efficient extensible grid manager supporting distributed adaptive hybrid multigrids in 1, 2 and 3 dimensions.
+    Supported element types are vertices, edges, triangles, quadrilaterals, tetrahedra, hexahedra, prisms and pyramids.
+  </li>
+  <li>A flexible algebra independent from grid and discretization designed to swap the core functions to support
+    double/single precision, systems of equations and GPGPUs.</li>
+  <li>A parallelization layer based on MPI which allows efficient communication on distributed hierarchical graphs.
+    Scalability has been shown for up to 256ki processes</li>
+  <li>ug4 is backed up by several powerful tools like ProMesh (meshing software), the ConnectionViewer (used to inspect
+    matrix connections), or the integrated profiler (Shiny extended by output and analyzation tools).</li>
+  <li>A flexible plugin system to extend ug4 functionality without the need to dive into the specifics of ug4's
+    implementation</li>
+  <li>Simulation results can be stored and interpreted by widely spread visualization toolkits like the VTK based
+    ParaView.
+    ug4 is a cross-platform tool and supports Linux, MacOSX and Microsoft Windows.</li>
+</ul>
+
+<hr>
+<h4>Latest Release</h4>
+{% assign latest = site.data.releases[0] %}
+<a class="ug-release" href="{{ latest.html_url }}">
+<div class="ug-release">
+    <h5 class="card-title">UG4 {{ latest.tag_name }}</h5>
+    <span>{{ latest.published_at | date: "%B %d, %Y" }}</span>
+    <hr class="ug-release-rule">
+    <p class="card-text" style="margin-bottom: 0.1rem">
+      {{ latest.body | truncatewords: 30}}
+    </p>    
+</div></a>
+<hr>
+
+<h4>Getting started</h4>
+<ul>
+  <li><a href="{{ setup.html | prepend: site.baseurl }}">Setup UG4</a></li>
+  <li><a href="{{ pipeline.html | prepend: site.baseurl }}">Introduction to UG4's Simulation Pipeline</a></li>
+  <li><a href="{{ tutorials.html | prepend: site.baseurl }}">Tutorials for Beginners</a></li>
+  <li><a href="{{ examples.html | prepend: site.baseurl }}">Examples</a></li>
+  <li><a href="{{ documentation.html | prepend: site.baseurl }}">Documentation</a></li>
+</ul>
+<hr>
+
+
+<div class="card ug-card">
+  <div class="card-body">
+    <h5 class="card-title">Please use the following references to cite UG4 in your publications:</h5>
+    <p>
+      Reiter, S., Vogel, A., Heppner, I., Rupp, M., and Wittum, G.<br>
+      A massively parallel geometric multigrid solver on hierarchically distributed grids.<br>
+      Computing and visualization in science 16, 4 (2013), 151-164,<br>
+      DOI: 10.1007/s00791-014-0231-x
+    </p>
+    <p>
+      Vogel, A., Reiter, S., Rupp, M., Nägel, A., and Wittum, G.<br>
+      UG4 -- a novel flexible software system for simulating pde based models on high performance computers.<br>
+      Computing and visualization in science 16, 4 (2013), 165-179,<br>
+      DOI: 10.1007/s00791-014-0232-9
+    </p>
+    <a href="https://github.com/UG4/ugcore/blob/master/ug4.bib">> BibTex File</a>
+  </div>
+</div>
+
+
+<div class="row justify-content-center">
+  {% for c in site.data.collaborators %}
+  <div class="col-lg-3">
+    <img src="{{ c.logo | relative_url }}" class="img-fluid ug-collaborator w-100 mx-auto d-block"
+      alt="{{ c.name }} Logo">
+  </div>
+  {% endfor %}
+</div>
