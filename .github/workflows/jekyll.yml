@@ -25,8 +25,6 @@ jobs:
         with:
           enable_cache: true
           format_output: true
-          prettier_ignore: "plantdata.html"
-
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
