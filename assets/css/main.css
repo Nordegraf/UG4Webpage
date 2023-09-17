@@ -46,6 +46,24 @@ a.ug-release:hover { text-decoration: underline; color: black; }
 
 a.ug-release:hover div.ug-release { background-color: #e7e7e7; border: 1px solid #cecece; }
 
+div.homepath { display: inline; }
+
+code { font-size: 1em !important; color: #66005e !important; }
+
+pre.highlight { font-size: 1em !important; }
+
+div.highlighter-rouge { background-color: #e7e7e7; border-radius: 3px; margin-bottom: 1rem; margin-left: 0.5rem; }
+
+a.sideitem { color: black; text-decoration: none; }
+
+a.sideitem:hover { text-decoration: underline; }
+
+a.subsideitem { color: black; text-decoration: none; }
+
+a.subsideitem:hover { text-decoration: underline; }
+
+div.subsideitem { padding: 0.2rem 0.2rem 0 0.7rem; }
+
 .highlight .hll { background-color: #ffffcc; }
 
 .highlight .c { color: #408080; font-style: italic; }
