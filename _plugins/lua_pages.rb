@@ -51,7 +51,6 @@ module Lua
         attach_code(code)
 
         @data = {
-          'linked_docs' => entry,
           'layout' => 'title',
           'title' => @type + ' ' + @number + ' - ' + @title,
           'brief' => @brief,
@@ -195,7 +194,7 @@ module Lua
         @location = location
         @collection = collection
         @type = type
-        
+
         site.collections[collection] = Jekyll::Collection.new(site, collection)
       end
 
@@ -216,7 +215,7 @@ module Lua
     class Generator < Jekyll::Generator
       def generate(site)
         Jekyll.logger.info "lua Tutorials:", "Generating pages for lua tutorials"
-        
+
         reader = LuaReader.new(site, "lua_tutorials", "/_lua_tutorials", "/tutorials/lua", "Tutorial")
         reader.read()
 

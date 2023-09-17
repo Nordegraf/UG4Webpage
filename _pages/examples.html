@@ -9,7 +9,7 @@ layout: title
         {{ sorted.number }}
         {% for exp in sorted %}
             <li>
-                <a href="{{ exp.url }}">{{ exp.title }}</a>
+                <a href="{{ exp.url | relative_url }}">{{ exp.title }}</a>
                 <p>{{ exp.brief }}</p>
             </li>
         {% endfor %}

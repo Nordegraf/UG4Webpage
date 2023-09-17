@@ -1,0 +1,54 @@
+---
+layout: default
+---
+
+<div class="row">
+  <div class="col-md-2">
+  </div>
+  <div class="col-md-10">
+    <h1>{{ page.title }}</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-2">
+    <hr class="d-lg-none">
+    {% assign os = "linux windows" | split: ' ' %}
+    {% for i in os %}
+
+    {% unless forloop.first %}
+    {% assign suffix = forloop.index0 | prepend: "-" %}
+    {% else %}
+    {% assign suffix = "" %}
+    {% endunless %}
+
+    <div class="collapse {% if i == "linux" %}show {% endif %}{{ i }}" id="{{ i }}Sidebar">
+      <ul class="list-unstyled ps-0">
+        {% for item in page.sidebar %}
+        <li class="mb-1">
+          <a href="{{ item.href }}{% unless item.single %}{{ suffix }}{% endunless %}" class="sideitem">{{ item.name }}</a>
+          {% if item.sub %}
+          <ul class="list-unstyled pb-1 small content">
+            {% for subitem in item.sub %}
+            <div class="subsideitem">
+              <li>
+              <a href="{{ subitem.href }}{% unless subitem.single %}{{ suffix }}{% endunless %}" class="subsideitem">{{ subitem.name }}</a>
+              </li>
+            </div>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </li>
+
+        {% endfor %}
+      </ul>
+      <hr class="d-lg-none">
+    </div>
+
+
+
+    {% endfor %}
+
+  </div>
+  <div class="col-10">{{ content }}</div>
+</div>

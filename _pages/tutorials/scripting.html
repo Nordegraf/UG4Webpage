@@ -14,7 +14,7 @@ layout: title
     {{ sorted.number }}
     {% for tut in sorted %}
         <li>
-            <a href="{{ tut.url }}">{{ tut.title }}</a>
+            <a href="{{ tut.url | relative_url }}">{{ tut.title }}</a>
             <p>{{ tut.brief }}</p>
         </li>
     {% endfor %}

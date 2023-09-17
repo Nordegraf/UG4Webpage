@@ -2,6 +2,7 @@ $ug4blue: #66b5ff;
 $ug4blue-hover: darken($ug4blue, 10%);
 $footer-font-size: 0.8rem;
 $light-gray: #e7e7e7;
+$code: #66005e;
 
 li.nav-item.ug-nav-item {
     background-color: $ug4blue;
@@ -125,4 +126,46 @@ a.ug-release:hover {
         background-color: $light-gray;
         border: 1px solid darken($light-gray, 10%);
     }
+}
+
+div.homepath {
+    display: inline;
+}
+
+code {
+    font-size: 1em !important;
+    color: $code !important;
+}
+
+pre.highlight {
+    font-size: 1em !important;
+}
+
+div.highlighter-rouge {
+    background-color: $light-gray;
+    border-radius: 3px;
+    margin-bottom: 1rem;
+    margin-left: 0.5rem;
+}
+
+a.sideitem {
+    color: black;
+    text-decoration: none;
+}
+
+a.sideitem:hover {
+    text-decoration: underline;
+}
+
+a.subsideitem {
+    color: black;
+    text-decoration: none;
+}
+
+a.subsideitem:hover {
+    text-decoration: underline;
+}
+
+div.subsideitem {
+    padding: 0.2rem 0.2rem 0 0.7rem;
 }
