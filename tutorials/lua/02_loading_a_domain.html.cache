@@ -1,0 +1,255 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Tutorial 02 - Loading a Domain | ug4.github.io</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Tutorial 02 - Loading a Domain" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://www.ug4.github.io/UG4Webpage/tutorials/lua/02_loading_a_domain.html" />
+<meta property="og:url" content="http://www.ug4.github.io/UG4Webpage/tutorials/lua/02_loading_a_domain.html" />
+<meta property="og:site_name" content="ug4.github.io" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Tutorial 02 - Loading a Domain" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"Tutorial 02 - Loading a Domain","url":"http://www.ug4.github.io/UG4Webpage/tutorials/lua/02_loading_a_domain.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/UG4Webpage/assets/css/main.css">
+  <link rel="icon" type="image/png" href="/UG4Webpage/favicon.ico">
+
+  <title>Tutorial 02 - Loading a Domain - ug4.github.io</title>
+</head>
+
+<body>
+  <header>
+    <div class="ug-navbar">
+<div class="container px-3">
+<nav class="navbar navbar-expand-lg py-0 px-2">
+    <div class="position-relative p-0">
+      <a class="navbar-brand" href="/UG4Webpage/">ug4</a>
+      <button class="navbar-toggler position-absolute" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  <div class="container p-0">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav nav-fill w-100">
+          
+          
+          <li class="nav-item ug-nav-item ">
+            <a class="nav-link " href="/UG4Webpage/">About</a>
+          </li>
+        
+        
+          
+          <li class="nav-item ug-nav-item ">
+            <a class="nav-link " href="/UG4Webpage/setup">Setup</a>
+          </li>
+        
+        
+          
+          <li class="nav-item ug-nav-item ">
+            <a class="nav-link " href="/UG4Webpage/examples">Examples</a>
+          </li>
+        
+        
+          
+          <li class="nav-item ug-nav-item dropdown active">
+            <a class="nav-link ug-nav-item dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Tutorials
+            </a>
+            <ul class="dropdown-menu">
+              
+              <li><a class="dropdown-item" href="/UG4Webpage/tutorials/scripting">Lua Scripting</a></li>
+              
+              <li><a class="dropdown-item" href="/UG4Webpage/tutorials/python">Python Scripting</a></li>
+              
+            </ul>
+          </li>
+        
+        
+          
+          <li class="nav-item ug-nav-item ">
+            <a class="nav-link " href="/UG4Webpage/docs">Documentation</a>
+          </li>
+        
+        
+          
+          <li class="nav-item ug-nav-item ">
+            <a class="nav-link " href="/UG4Webpage/development">Development</a>
+          </li>
+        
+        
+          
+          <li class="nav-item ug-nav-item ">
+            <a class="nav-link " href="/UG4Webpage/publications">Publications</a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+</div>
+</div>
+
+</header>
+
+  <div class="container py-3">
+    <div class="container px-2 py-2">
+      <h1>Tutorial 02 - Loading a Domain</h1>
+      <p>This tutorial will give you a first idea on how to use a lua script to
+steer ug. We will examine how to use command line arguments to specify
+a filename and a dimension and on how to load and save a domain.
+Furthermore we will distribute the domain to all involved processes.</p>
+<p>Note that we’re using methods and classes in this script file which are
+not part of lua itself, but which have been registered at lua by ug.</p>
+
+
+<p>We will include a script file which defines some methods often used.
+Loaded methods are all found in the library util.</p>
+<figure class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">ug_load_script</span><span class="p">(</span><span class="s2">"ug_util.lua"</span><span class="p">)</span></code></pre></figure>
+<p>To keep the script flexible we will now define some variables which have
+a default value that can be overwritten by command line arguments.</p>
+
+<p>Depending on the dimension we will choose our domain object
+(either 1d, 2d or 3d) and associated discretization objects. Note that
+we’re using some methods defined in “ug_util.lua” here.</p>
+<figure class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">dim</span> <span class="o">=</span> <span class="n">util</span><span class="p">.</span><span class="n">GetParamNumber</span><span class="p">(</span><span class="s2">"-dim"</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c1">-- default dimension is 2.</span></code></pre></figure>
+<p>Since ug supports a bunch of different dimensions and algebra modules 
+we will choose a combination here. This should always be the first thing 
+you do in an ug-script. The cpu-algebra is fine for now.</p>
+<figure class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">InitUG</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">AlgebraType</span><span class="p">(</span><span class="s2">"CPU"</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span></code></pre></figure>
+<p>We also need a filename for the grid that shall be loaded.</p>
+<figure class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">gridName</span> <span class="o">=</span> <span class="n">util</span><span class="p">.</span><span class="n">GetParam</span><span class="p">(</span><span class="s2">"-grid"</span><span class="p">,</span> <span class="s2">"unit_square/unit_square_quads_8x8.ugx"</span><span class="p">)</span></code></pre></figure>
+<p>Now its time to create the domain object. We will use an util method here,
+which automatically creates the right domain for the given dimension.</p>
+<figure class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">dom</span> <span class="o">=</span> <span class="n">Domain</span><span class="p">()</span></code></pre></figure>
+<p>Now that we have a domain, we can load a grid into it. We check the return
+value whether the loading was successful or not.
+Note that LoadDomain first tries to load the grid relative to the path in
+which the currently executed script lies. If it isn’t found there, then
+LoadDomain tries to load the grid by interpreting the filename as an
+absolute path. If this doesn’t work either, then the LoadDomain tries to
+load the grid relative to the grid-path (normally trunk/data/grids).</p>
+<figure class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">LoadDomain</span><span class="p">(</span><span class="n">dom</span><span class="p">,</span> <span class="n">gridName</span><span class="p">)</span></code></pre></figure>
+<p>Now that we’re here, the domain was successfully loaded</p>
+<figure class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="nb">print</span><span class="p">(</span><span class="s2">"Loaded domain from "</span> <span class="o">..</span> <span class="n">gridName</span><span class="p">)</span></code></pre></figure>
+<p>Distribute the domain to all involved processes</p>
+<figure class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="k">if</span> <span class="n">util</span><span class="p">.</span><span class="n">DistributeDomain</span><span class="p">(</span><span class="n">dom</span><span class="p">)</span> <span class="o">==</span> <span class="kc">false</span> <span class="k">then</span>
+	<span class="nb">print</span><span class="p">(</span><span class="s2">"Error while Distributing Domain. Aborting."</span><span class="p">)</span>
+	<span class="n">exit</span><span class="p">()</span>
+<span class="k">end</span></code></pre></figure>
+<p>Lets save the domain on each process</p>
+<figure class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">outFileName</span> <span class="o">=</span> <span class="s2">"distributedDomainOnProc"</span> <span class="o">..</span> <span class="n">ProcRank</span><span class="p">()</span> <span class="o">..</span> <span class="s2">".ugx"</span>
+<span class="n">SaveDomain</span><span class="p">(</span><span class="n">dom</span><span class="p">,</span> <span class="n">outFileName</span><span class="p">)</span></code></pre></figure>
+<p>Everything seems to went fine.</p>
+<figure class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="nb">print</span><span class="p">(</span><span class="s2">"Saved domain to "</span> <span class="o">..</span> <span class="n">outFileName</span><span class="p">)</span></code></pre></figure>
+
+<h3 id="complete-code">Complete Code</h3>
+
+<figure class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="c1">--------------------------------------------------------------------------------</span>
+<span class="c1">--	tut02_loading_a_domain.lua</span>
+<span class="c1">--</span>
+<span class="c1">--  \title Loading a Domain</span>
+<span class="c1">--</span>
+<span class="c1">--  \brief This tutorial will give you a first idea on how to use a lua script </span>
+<span class="c1">--  to steer ug. We will examine how to use command line arguments to specify </span>
+<span class="c1">--  filename and a dimension and on how to load and save a domain. Furthermore </span>
+<span class="c1">--  we will distribute the domain to all involved processes.</span>
+<span class="c1">--</span>
+<span class="c1">--	This tutorial will give you a first idea on how to use a lua script to</span>
+<span class="c1">--	steer ug. We will examine how to use command line arguments to specify</span>
+<span class="c1">--	a filename and a dimension and on how to load and save a domain.</span>
+<span class="c1">--	Furthermore we will distribute the domain to all involved processes.</span>
+<span class="c1">--</span>
+<span class="c1">--	Note that we're using methods and classes in this script file which are</span>
+<span class="c1">--	not part of lua itself, but which have been registered at lua by ug.</span>
+<span class="c1">--------------------------------------------------------------------------------</span>
+
+<span class="c1">-- We will include a script file which defines some methods often used.</span>
+<span class="c1">-- Loaded methods are all found in the library util.</span>
+<span class="n">ug_load_script</span><span class="p">(</span><span class="s2">"ug_util.lua"</span><span class="p">)</span>
+
+<span class="c1">-- To keep the script flexible we will now define some variables which have</span>
+<span class="c1">-- a default value that can be overwritten by command line arguments.</span>
+
+<span class="c1">-- Depending on the dimension we will choose our domain object</span>
+<span class="c1">-- (either 1d, 2d or 3d) and associated discretization objects. Note that</span>
+<span class="c1">-- we're using some methods defined in "ug_util.lua" here.</span>
+<span class="n">dim</span> <span class="o">=</span> <span class="n">util</span><span class="p">.</span><span class="n">GetParamNumber</span><span class="p">(</span><span class="s2">"-dim"</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c1">-- default dimension is 2.</span>
+
+<span class="c1">-- Since ug supports a bunch of different dimensions and algebra modules </span>
+<span class="c1">-- we will choose a combination here. This should always be the first thing </span>
+<span class="c1">-- you do in an ug-script. The cpu-algebra is fine for now.</span>
+<span class="n">InitUG</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">AlgebraType</span><span class="p">(</span><span class="s2">"CPU"</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="c1">-- We also need a filename for the grid that shall be loaded.</span>
+<span class="n">gridName</span> <span class="o">=</span> <span class="n">util</span><span class="p">.</span><span class="n">GetParam</span><span class="p">(</span><span class="s2">"-grid"</span><span class="p">,</span> <span class="s2">"unit_square/unit_square_quads_8x8.ugx"</span><span class="p">)</span>
+
+
+
+
+
+<span class="c1">-- Now its time to create the domain object. We will use an util method here,</span>
+<span class="c1">-- which automatically creates the right domain for the given dimension.</span>
+<span class="n">dom</span> <span class="o">=</span> <span class="n">Domain</span><span class="p">()</span>
+
+<span class="c1">-- Now that we have a domain, we can load a grid into it. We check the return</span>
+<span class="c1">-- value whether the loading was successful or not.</span>
+<span class="c1">-- Note that LoadDomain first tries to load the grid relative to the path in</span>
+<span class="c1">-- which the currently executed script lies. If it isn't found there, then</span>
+<span class="c1">-- LoadDomain tries to load the grid by interpreting the filename as an</span>
+<span class="c1">-- absolute path. If this doesn't work either, then the LoadDomain tries to</span>
+<span class="c1">-- load the grid relative to the grid-path (normally trunk/data/grids).</span>
+<span class="n">LoadDomain</span><span class="p">(</span><span class="n">dom</span><span class="p">,</span> <span class="n">gridName</span><span class="p">)</span>
+
+<span class="c1">-- Now that we're here, the domain was successfully loaded</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Loaded domain from "</span> <span class="o">..</span> <span class="n">gridName</span><span class="p">)</span>
+
+
+<span class="c1">-- Distribute the domain to all involved processes</span>
+<span class="k">if</span> <span class="n">util</span><span class="p">.</span><span class="n">DistributeDomain</span><span class="p">(</span><span class="n">dom</span><span class="p">)</span> <span class="o">==</span> <span class="kc">false</span> <span class="k">then</span>
+	<span class="nb">print</span><span class="p">(</span><span class="s2">"Error while Distributing Domain. Aborting."</span><span class="p">)</span>
+	<span class="n">exit</span><span class="p">()</span>
+<span class="k">end</span>
+
+
+<span class="c1">-- Lets save the domain on each process</span>
+<span class="n">outFileName</span> <span class="o">=</span> <span class="s2">"distributedDomainOnProc"</span> <span class="o">..</span> <span class="n">ProcRank</span><span class="p">()</span> <span class="o">..</span> <span class="s2">".ugx"</span>
+<span class="n">SaveDomain</span><span class="p">(</span><span class="n">dom</span><span class="p">,</span> <span class="n">outFileName</span><span class="p">)</span>
+
+<span class="c1">-- Everything seems to went fine.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Saved domain to "</span> <span class="o">..</span> <span class="n">outFileName</span><span class="p">)</span></code></pre></figure>
+
+    </div>
+  </div>
+
+  <footer class="ug-footer">
+
+  <div class="container px-1">
+    <div class="row justify-content-between">
+      <div class="col-lg-4 order-lg-2">
+        <p class="footer-text">
+          <a class="cf-a" href="/UG4Webpage/imprint">Imprint</a> | <a class="cf-a" href="/UG4Webpage/privacy">Privacy Declaration</a>
+        </p>
+      </div>
+      <div class="col-lg-8 order-lg-1">
+        <p class="copyright-text">
+          &copy 2009-2023 - Goethe Center for Scientific Computing, G-CSC, Goethe University Frankfurt
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script src="/UG4Webpage/assets/js/bootstrap.bundle.min.js"></script>
+  
+
+</footer>
+
+</body>
+
+</html>

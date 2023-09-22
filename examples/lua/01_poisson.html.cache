@@ -1,0 +1,407 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Example 01 - No title found | ug4.github.io</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Example 01 - No title found" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://www.ug4.github.io/UG4Webpage/examples/lua/01_poisson.html" />
+<meta property="og:url" content="http://www.ug4.github.io/UG4Webpage/examples/lua/01_poisson.html" />
+<meta property="og:site_name" content="ug4.github.io" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Example 01 - No title found" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"Example 01 - No title found","url":"http://www.ug4.github.io/UG4Webpage/examples/lua/01_poisson.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/UG4Webpage/assets/css/main.css">
+  <link rel="icon" type="image/png" href="/UG4Webpage/favicon.ico">
+
+  <title>Example 01 - No title found - ug4.github.io</title>
+</head>
+
+<body>
+  <header>
+    <div class="ug-navbar">
+<div class="container px-3">
+<nav class="navbar navbar-expand-lg py-0 px-2">
+    <div class="position-relative p-0">
+      <a class="navbar-brand" href="/UG4Webpage/">ug4</a>
+      <button class="navbar-toggler position-absolute" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  <div class="container p-0">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav nav-fill w-100">
+          
+          
+          <li class="nav-item ug-nav-item ">
+            <a class="nav-link " href="/UG4Webpage/">About</a>
+          </li>
+        
+        
+          
+          <li class="nav-item ug-nav-item ">
+            <a class="nav-link " href="/UG4Webpage/setup">Setup</a>
+          </li>
+        
+        
+          
+          <li class="nav-item ug-nav-item ">
+            <a class="nav-link " href="/UG4Webpage/examples">Examples</a>
+          </li>
+        
+        
+          
+          <li class="nav-item ug-nav-item dropdown">
+            <a class="nav-link ug-nav-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Tutorials
+            </a>
+            <ul class="dropdown-menu">
+              
+              <li><a class="dropdown-item" href="/UG4Webpage/tutorials/scripting">Lua Scripting</a></li>
+              
+              <li><a class="dropdown-item" href="/UG4Webpage/tutorials/python">Python Scripting</a></li>
+              
+            </ul>
+          </li>
+        
+        
+          
+          <li class="nav-item ug-nav-item ">
+            <a class="nav-link " href="/UG4Webpage/docs">Documentation</a>
+          </li>
+        
+        
+          
+          <li class="nav-item ug-nav-item ">
+            <a class="nav-link " href="/UG4Webpage/development">Development</a>
+          </li>
+        
+        
+          
+          <li class="nav-item ug-nav-item ">
+            <a class="nav-link " href="/UG4Webpage/publications">Publications</a>
+          </li>
+        
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+</div>
+</div>
+
+</header>
+
+  <div class="container py-3">
+    <div class="container px-2 py-2">
+      <h1>Example 01 - No title found</h1>
+      <p>Copyright (c) 2010-2016:  G-CSC, Goethe University Frankfurt
+Authors: Andreas Vogel, Sebastian Reiter
+This file is part of UG4.
+UG4 is free software: you can redistribute it and/or modify it under the
+terms of the GNU Lesser General Public License version 3 (as published by the
+Free Software Foundation) with the following additional attribution
+requirements (according to LGPL/GPL v3 §7):
+(1) The following notice must be displayed in the Appropriate Legal Notices
+of covered and combined works: “Based on UG4 (www.ug4.org/license)”.
+(2) The following notice must be displayed at a prominent place in the
+terminal output of covered works: “Based on UG4 (www.ug4.org/license)”.
+(3) The following bibliography is recommended for citation and must be
+preserved in all covered files:
+“Reiter, S., Vogel, A., Heppner, I., Rupp, M., and Wittum, G. A massively
+parallel geometric multigrid solver on hierarchically distributed grids.
+Computing and visualization in science 16, 4 (2013), 151-164”
+“Vogel, A., Reiter, S., Rupp, M., Nägel, A., and Wittum, G. UG4 <code>--</code> a novel
+flexible software system for simulating pde based models on high performance
+computers. Computing and visualization in science 16, 4 (2013), 165-179”
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.</p>
+
+<p>Load utility scripts (e.g. from from ugcore/scripts)</p>
+<figure class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">ug_load_script</span><span class="p">(</span><span class="s2">"ug_util.lua"</span><span class="p">)</span>
+<span class="n">ug_load_script</span><span class="p">(</span><span class="s2">"util/refinement_util.lua"</span><span class="p">)</span></code></pre></figure>
+<p>Parse parameters and print help</p>
+<figure class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">dim</span>			<span class="o">=</span> <span class="n">util</span><span class="p">.</span><span class="n">GetParamNumber</span><span class="p">(</span><span class="s2">"-dim"</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"Dimension of the problem"</span><span class="p">,</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">})</span>
+<span class="n">gridName</span>	<span class="o">=</span> <span class="n">util</span><span class="p">.</span><span class="n">GetParam</span><span class="p">(</span><span class="s2">"-grid"</span><span class="p">,</span> <span class="s2">"grids/laplace_sample_grid_"</span><span class="o">..</span><span class="n">dim</span><span class="o">..</span><span class="s2">"d.ugx"</span><span class="p">,</span>
+							<span class="s2">"filename of underlying grid"</span><span class="p">)</span>
+<span class="n">numRefs</span>		<span class="o">=</span> <span class="n">util</span><span class="p">.</span><span class="n">GetParamNumber</span><span class="p">(</span><span class="s2">"-numRefs"</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"number of refinements"</span><span class="p">)</span>
+
+<span class="n">util</span><span class="p">.</span><span class="n">CheckAndPrintHelp</span><span class="p">(</span><span class="s2">"Poisson-Equation"</span><span class="p">);</span></code></pre></figure>
+<p>initialize ug with the world dimension and the algebra type</p>
+<figure class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">InitUG</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">AlgebraType</span><span class="p">(</span><span class="s2">"CPU"</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span></code></pre></figure>
+<p>Load a domain without initial refinements.</p>
+<figure class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">requiredSubsets</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Inner"</span><span class="p">,</span> <span class="s2">"Boundary"</span><span class="p">}</span>
+<span class="n">dom</span> <span class="o">=</span> <span class="n">util</span><span class="p">.</span><span class="n">CreateDomain</span><span class="p">(</span><span class="n">gridName</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">requiredSubsets</span><span class="p">)</span></code></pre></figure>
+<p>Refine the domain (redistribution is handled internally for parallel runs)</p>
+<figure class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="nb">print</span><span class="p">(</span><span class="s2">"refining..."</span><span class="p">)</span>
+<span class="n">util</span><span class="p">.</span><span class="n">refinement</span><span class="p">.</span><span class="n">CreateRegularHierarchy</span><span class="p">(</span><span class="n">dom</span><span class="p">,</span> <span class="n">numRefs</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span></code></pre></figure>
+<p>callback functions for sources and boundary values (only the ones matching ‘dim’ are used)</p>
+<figure class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="k">function</span> <span class="nf">Source1d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+	<span class="kd">local</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="nb">math.pi</span>
+	<span class="k">return</span> <span class="n">s</span><span class="o">*</span><span class="n">s</span><span class="o">*</span><span class="nb">math.sin</span><span class="p">(</span><span class="n">s</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">function</span> <span class="nf">DirichletValue1d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+	<span class="k">return</span> <span class="kc">true</span><span class="p">,</span> <span class="nb">math.sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="nb">math.pi</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">function</span> <span class="nf">Source2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+	<span class="kd">local</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="nb">math.pi</span>
+	<span class="k">return</span> <span class="n">s</span><span class="o">*</span><span class="n">s</span><span class="o">*</span><span class="p">(</span><span class="nb">math.sin</span><span class="p">(</span><span class="n">s</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="nb">math.sin</span><span class="p">(</span><span class="n">s</span><span class="o">*</span><span class="n">y</span><span class="p">))</span>
+<span class="k">end</span>
+
+<span class="k">function</span> <span class="nf">DirichletValue2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+	<span class="kd">local</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="nb">math.pi</span>
+	<span class="k">return</span> <span class="kc">true</span><span class="p">,</span> <span class="nb">math.sin</span><span class="p">(</span><span class="n">s</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="nb">math.sin</span><span class="p">(</span><span class="n">s</span><span class="o">*</span><span class="n">y</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">function</span> <span class="nf">Source3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+	<span class="kd">local</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="nb">math.pi</span>
+	<span class="k">return</span>	<span class="n">s</span><span class="o">*</span><span class="n">s</span><span class="o">*</span><span class="p">(</span><span class="nb">math.sin</span><span class="p">(</span><span class="n">s</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="nb">math.sin</span><span class="p">(</span><span class="n">s</span><span class="o">*</span><span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="nb">math.sin</span><span class="p">(</span><span class="n">s</span><span class="o">*</span><span class="n">z</span><span class="p">))</span>
+<span class="k">end</span>
+
+<span class="k">function</span> <span class="nf">DirichletValue3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+	<span class="kd">local</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="nb">math.pi</span>
+	<span class="k">return</span> <span class="kc">true</span><span class="p">,</span> <span class="nb">math.sin</span><span class="p">(</span><span class="n">s</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="nb">math.sin</span><span class="p">(</span><span class="n">s</span><span class="o">*</span><span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="nb">math.sin</span><span class="p">(</span><span class="n">s</span><span class="o">*</span><span class="n">z</span><span class="p">)</span>
+<span class="k">end</span></code></pre></figure>
+<p>set up approximation space</p>
+<figure class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">approxSpace</span> <span class="o">=</span> <span class="n">ApproximationSpace</span><span class="p">(</span><span class="n">dom</span><span class="p">)</span>
+<span class="n">approxSpace</span><span class="p">:</span><span class="n">add_fct</span><span class="p">(</span><span class="s2">"c"</span><span class="p">,</span> <span class="s2">"Lagrange"</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">approxSpace</span><span class="p">:</span><span class="n">init_levels</span><span class="p">()</span>
+<span class="n">approxSpace</span><span class="p">:</span><span class="n">init_top_surface</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"approximation space:"</span><span class="p">)</span>
+<span class="n">approxSpace</span><span class="p">:</span><span class="n">print_statistic</span><span class="p">()</span></code></pre></figure>
+<p>set up discretization
+Please have a look at this page for more information on the
+ConvectionDiffusion discretization object:
+<a href="http://ug4.github.io/docs/plugins/classug_1_1_convection_diffusion_plugin_1_1_convection_diffusion_base.html#details">http://ug4.github.io/docs/plugins/classug_1_1_convection_diffusion_plugin_1_1_convection_diffusion_base.html#details</a></p>
+<figure class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">elemDisc</span> <span class="o">=</span> <span class="n">ConvectionDiffusion</span><span class="p">(</span><span class="s2">"c"</span><span class="p">,</span> <span class="s2">"Inner"</span><span class="p">,</span> <span class="s2">"fv1"</span><span class="p">)</span>
+<span class="n">elemDisc</span><span class="p">:</span><span class="n">set_diffusion</span><span class="p">(</span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">elemDisc</span><span class="p">:</span><span class="n">set_source</span><span class="p">(</span><span class="s2">"Source"</span><span class="o">..</span><span class="n">dim</span><span class="o">..</span><span class="s2">"d"</span><span class="p">)</span>
+
+<span class="n">dirichletBND</span> <span class="o">=</span> <span class="n">DirichletBoundary</span><span class="p">()</span>
+<span class="n">dirichletBND</span><span class="p">:</span><span class="n">add</span><span class="p">(</span><span class="s2">"DirichletValue"</span><span class="o">..</span><span class="n">dim</span><span class="o">..</span><span class="s2">"d"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">,</span> <span class="s2">"Boundary"</span><span class="p">)</span>
+
+<span class="n">domainDisc</span> <span class="o">=</span> <span class="n">DomainDiscretization</span><span class="p">(</span><span class="n">approxSpace</span><span class="p">)</span>
+<span class="n">domainDisc</span><span class="p">:</span><span class="n">add</span><span class="p">(</span><span class="n">elemDisc</span><span class="p">)</span>
+<span class="n">domainDisc</span><span class="p">:</span><span class="n">add</span><span class="p">(</span><span class="n">dirichletBND</span><span class="p">)</span></code></pre></figure>
+<p>set up solver (using ‘util/solver_util.lua’)</p>
+<figure class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">solverDesc</span> <span class="o">=</span> <span class="p">{</span>
+	<span class="nb">type</span> <span class="o">=</span> <span class="s2">"bicgstab"</span><span class="p">,</span>
+	<span class="n">precond</span> <span class="o">=</span> <span class="p">{</span>
+		<span class="nb">type</span>		<span class="o">=</span> <span class="s2">"gmg"</span><span class="p">,</span>
+		<span class="n">approxSpace</span>	<span class="o">=</span> <span class="n">approxSpace</span><span class="p">,</span>
+		<span class="n">smoother</span>	<span class="o">=</span> <span class="s2">"jac"</span><span class="p">,</span>
+		<span class="n">baseSolver</span>	<span class="o">=</span> <span class="s2">"lu"</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">solver</span> <span class="o">=</span> <span class="n">util</span><span class="p">.</span><span class="n">solver</span><span class="p">.</span><span class="n">CreateSolver</span><span class="p">(</span><span class="n">solverDesc</span><span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">solving..."</span><span class="p">)</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">AssembledLinearOperator</span><span class="p">(</span><span class="n">domainDisc</span><span class="p">)</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">GridFunction</span><span class="p">(</span><span class="n">approxSpace</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">GridFunction</span><span class="p">(</span><span class="n">approxSpace</span><span class="p">)</span>
+<span class="n">u</span><span class="p">:</span><span class="n">set</span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">domainDisc</span><span class="p">:</span><span class="n">adjust_solution</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+<span class="n">domainDisc</span><span class="p">:</span><span class="n">assemble_linear</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+
+<span class="n">solver</span><span class="p">:</span><span class="n">init</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span>
+<span class="n">solver</span><span class="p">:</span><span class="n">apply</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+
+
+<span class="n">solFileName</span> <span class="o">=</span> <span class="s2">"sol_poisson_"</span><span class="o">..</span><span class="n">dim</span><span class="o">..</span><span class="s2">"d"</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"writing solution to '"</span> <span class="o">..</span> <span class="n">solFileName</span> <span class="o">..</span> <span class="s2">"'..."</span><span class="p">)</span>
+<span class="n">WriteGridFunctionToVTK</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">solFileName</span><span class="p">)</span>
+<span class="n">SaveVectorForConnectionViewer</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">solFileName</span> <span class="o">..</span> <span class="s2">".vec"</span><span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"done"</span><span class="p">)</span></code></pre></figure>
+
+<h3 id="complete-code">Complete Code</h3>
+
+<figure class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="c1">-- Copyright (c) 2010-2016:  G-CSC, Goethe University Frankfurt</span>
+<span class="c1">-- Authors: Andreas Vogel, Sebastian Reiter</span>
+<span class="c1">-- </span>
+<span class="c1">-- This file is part of UG4.</span>
+<span class="c1">-- </span>
+<span class="c1">-- UG4 is free software: you can redistribute it and/or modify it under the</span>
+<span class="c1">-- terms of the GNU Lesser General Public License version 3 (as published by the</span>
+<span class="c1">-- Free Software Foundation) with the following additional attribution</span>
+<span class="c1">-- requirements (according to LGPL/GPL v3 §7):</span>
+<span class="c1">-- </span>
+<span class="c1">-- (1) The following notice must be displayed in the Appropriate Legal Notices</span>
+<span class="c1">-- of covered and combined works: "Based on UG4 (www.ug4.org/license)".</span>
+<span class="c1">-- </span>
+<span class="c1">-- (2) The following notice must be displayed at a prominent place in the</span>
+<span class="c1">-- terminal output of covered works: "Based on UG4 (www.ug4.org/license)".</span>
+<span class="c1">-- </span>
+<span class="c1">-- (3) The following bibliography is recommended for citation and must be</span>
+<span class="c1">-- preserved in all covered files:</span>
+<span class="c1">-- "Reiter, S., Vogel, A., Heppner, I., Rupp, M., and Wittum, G. A massively</span>
+<span class="c1">--   parallel geometric multigrid solver on hierarchically distributed grids.</span>
+<span class="c1">--   Computing and visualization in science 16, 4 (2013), 151-164"</span>
+<span class="c1">-- "Vogel, A., Reiter, S., Rupp, M., Nägel, A., and Wittum, G. UG4 -- a novel</span>
+<span class="c1">--   flexible software system for simulating pde based models on high performance</span>
+<span class="c1">--   computers. Computing and visualization in science 16, 4 (2013), 165-179"</span>
+<span class="c1">-- </span>
+<span class="c1">-- This program is distributed in the hope that it will be useful,</span>
+<span class="c1">-- but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the</span>
+<span class="c1">-- GNU Lesser General Public License for more details.</span>
+
+
+<span class="c1">-- Load utility scripts (e.g. from from ugcore/scripts)</span>
+<span class="n">ug_load_script</span><span class="p">(</span><span class="s2">"ug_util.lua"</span><span class="p">)</span>
+<span class="n">ug_load_script</span><span class="p">(</span><span class="s2">"util/refinement_util.lua"</span><span class="p">)</span>
+
+<span class="c1">-- Parse parameters and print help</span>
+<span class="n">dim</span>			<span class="o">=</span> <span class="n">util</span><span class="p">.</span><span class="n">GetParamNumber</span><span class="p">(</span><span class="s2">"-dim"</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"Dimension of the problem"</span><span class="p">,</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">})</span>
+<span class="n">gridName</span>	<span class="o">=</span> <span class="n">util</span><span class="p">.</span><span class="n">GetParam</span><span class="p">(</span><span class="s2">"-grid"</span><span class="p">,</span> <span class="s2">"grids/laplace_sample_grid_"</span><span class="o">..</span><span class="n">dim</span><span class="o">..</span><span class="s2">"d.ugx"</span><span class="p">,</span>
+							<span class="s2">"filename of underlying grid"</span><span class="p">)</span>
+<span class="n">numRefs</span>		<span class="o">=</span> <span class="n">util</span><span class="p">.</span><span class="n">GetParamNumber</span><span class="p">(</span><span class="s2">"-numRefs"</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"number of refinements"</span><span class="p">)</span>
+
+<span class="n">util</span><span class="p">.</span><span class="n">CheckAndPrintHelp</span><span class="p">(</span><span class="s2">"Poisson-Equation"</span><span class="p">);</span>
+
+
+<span class="c1">-- initialize ug with the world dimension and the algebra type</span>
+<span class="n">InitUG</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">AlgebraType</span><span class="p">(</span><span class="s2">"CPU"</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
+
+
+<span class="c1">-- Load a domain without initial refinements.</span>
+<span class="n">requiredSubsets</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Inner"</span><span class="p">,</span> <span class="s2">"Boundary"</span><span class="p">}</span>
+<span class="n">dom</span> <span class="o">=</span> <span class="n">util</span><span class="p">.</span><span class="n">CreateDomain</span><span class="p">(</span><span class="n">gridName</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">requiredSubsets</span><span class="p">)</span>
+
+<span class="c1">-- Refine the domain (redistribution is handled internally for parallel runs)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"refining..."</span><span class="p">)</span>
+<span class="n">util</span><span class="p">.</span><span class="n">refinement</span><span class="p">.</span><span class="n">CreateRegularHierarchy</span><span class="p">(</span><span class="n">dom</span><span class="p">,</span> <span class="n">numRefs</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+
+
+<span class="c1">-- callback functions for sources and boundary values (only the ones matching 'dim' are used)</span>
+<span class="k">function</span> <span class="nf">Source1d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+	<span class="kd">local</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="nb">math.pi</span>
+	<span class="k">return</span> <span class="n">s</span><span class="o">*</span><span class="n">s</span><span class="o">*</span><span class="nb">math.sin</span><span class="p">(</span><span class="n">s</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">function</span> <span class="nf">DirichletValue1d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+	<span class="k">return</span> <span class="kc">true</span><span class="p">,</span> <span class="nb">math.sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="nb">math.pi</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">function</span> <span class="nf">Source2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+	<span class="kd">local</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="nb">math.pi</span>
+	<span class="k">return</span> <span class="n">s</span><span class="o">*</span><span class="n">s</span><span class="o">*</span><span class="p">(</span><span class="nb">math.sin</span><span class="p">(</span><span class="n">s</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="nb">math.sin</span><span class="p">(</span><span class="n">s</span><span class="o">*</span><span class="n">y</span><span class="p">))</span>
+<span class="k">end</span>
+
+<span class="k">function</span> <span class="nf">DirichletValue2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+	<span class="kd">local</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="nb">math.pi</span>
+	<span class="k">return</span> <span class="kc">true</span><span class="p">,</span> <span class="nb">math.sin</span><span class="p">(</span><span class="n">s</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="nb">math.sin</span><span class="p">(</span><span class="n">s</span><span class="o">*</span><span class="n">y</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">function</span> <span class="nf">Source3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+	<span class="kd">local</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="nb">math.pi</span>
+	<span class="k">return</span>	<span class="n">s</span><span class="o">*</span><span class="n">s</span><span class="o">*</span><span class="p">(</span><span class="nb">math.sin</span><span class="p">(</span><span class="n">s</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="nb">math.sin</span><span class="p">(</span><span class="n">s</span><span class="o">*</span><span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="nb">math.sin</span><span class="p">(</span><span class="n">s</span><span class="o">*</span><span class="n">z</span><span class="p">))</span>
+<span class="k">end</span>
+
+<span class="k">function</span> <span class="nf">DirichletValue3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+	<span class="kd">local</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="nb">math.pi</span>
+	<span class="k">return</span> <span class="kc">true</span><span class="p">,</span> <span class="nb">math.sin</span><span class="p">(</span><span class="n">s</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="nb">math.sin</span><span class="p">(</span><span class="n">s</span><span class="o">*</span><span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="nb">math.sin</span><span class="p">(</span><span class="n">s</span><span class="o">*</span><span class="n">z</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1">-- set up approximation space</span>
+<span class="n">approxSpace</span> <span class="o">=</span> <span class="n">ApproximationSpace</span><span class="p">(</span><span class="n">dom</span><span class="p">)</span>
+<span class="n">approxSpace</span><span class="p">:</span><span class="n">add_fct</span><span class="p">(</span><span class="s2">"c"</span><span class="p">,</span> <span class="s2">"Lagrange"</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">approxSpace</span><span class="p">:</span><span class="n">init_levels</span><span class="p">()</span>
+<span class="n">approxSpace</span><span class="p">:</span><span class="n">init_top_surface</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"approximation space:"</span><span class="p">)</span>
+<span class="n">approxSpace</span><span class="p">:</span><span class="n">print_statistic</span><span class="p">()</span>
+
+
+<span class="c1">-- set up discretization</span>
+<span class="c1">-- Please have a look at this page for more information on the</span>
+<span class="c1">-- ConvectionDiffusion discretization object:</span>
+<span class="c1">-- http://ug4.github.io/docs/plugins/classug_1_1_convection_diffusion_plugin_1_1_convection_diffusion_base.html#details</span>
+<span class="n">elemDisc</span> <span class="o">=</span> <span class="n">ConvectionDiffusion</span><span class="p">(</span><span class="s2">"c"</span><span class="p">,</span> <span class="s2">"Inner"</span><span class="p">,</span> <span class="s2">"fv1"</span><span class="p">)</span>
+<span class="n">elemDisc</span><span class="p">:</span><span class="n">set_diffusion</span><span class="p">(</span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">elemDisc</span><span class="p">:</span><span class="n">set_source</span><span class="p">(</span><span class="s2">"Source"</span><span class="o">..</span><span class="n">dim</span><span class="o">..</span><span class="s2">"d"</span><span class="p">)</span>
+
+<span class="n">dirichletBND</span> <span class="o">=</span> <span class="n">DirichletBoundary</span><span class="p">()</span>
+<span class="n">dirichletBND</span><span class="p">:</span><span class="n">add</span><span class="p">(</span><span class="s2">"DirichletValue"</span><span class="o">..</span><span class="n">dim</span><span class="o">..</span><span class="s2">"d"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">,</span> <span class="s2">"Boundary"</span><span class="p">)</span>
+
+<span class="n">domainDisc</span> <span class="o">=</span> <span class="n">DomainDiscretization</span><span class="p">(</span><span class="n">approxSpace</span><span class="p">)</span>
+<span class="n">domainDisc</span><span class="p">:</span><span class="n">add</span><span class="p">(</span><span class="n">elemDisc</span><span class="p">)</span>
+<span class="n">domainDisc</span><span class="p">:</span><span class="n">add</span><span class="p">(</span><span class="n">dirichletBND</span><span class="p">)</span>
+
+
+<span class="c1">-- set up solver (using 'util/solver_util.lua')</span>
+<span class="n">solverDesc</span> <span class="o">=</span> <span class="p">{</span>
+	<span class="nb">type</span> <span class="o">=</span> <span class="s2">"bicgstab"</span><span class="p">,</span>
+	<span class="n">precond</span> <span class="o">=</span> <span class="p">{</span>
+		<span class="nb">type</span>		<span class="o">=</span> <span class="s2">"gmg"</span><span class="p">,</span>
+		<span class="n">approxSpace</span>	<span class="o">=</span> <span class="n">approxSpace</span><span class="p">,</span>
+		<span class="n">smoother</span>	<span class="o">=</span> <span class="s2">"jac"</span><span class="p">,</span>
+		<span class="n">baseSolver</span>	<span class="o">=</span> <span class="s2">"lu"</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">solver</span> <span class="o">=</span> <span class="n">util</span><span class="p">.</span><span class="n">solver</span><span class="p">.</span><span class="n">CreateSolver</span><span class="p">(</span><span class="n">solverDesc</span><span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">solving..."</span><span class="p">)</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">AssembledLinearOperator</span><span class="p">(</span><span class="n">domainDisc</span><span class="p">)</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">GridFunction</span><span class="p">(</span><span class="n">approxSpace</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">GridFunction</span><span class="p">(</span><span class="n">approxSpace</span><span class="p">)</span>
+<span class="n">u</span><span class="p">:</span><span class="n">set</span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">domainDisc</span><span class="p">:</span><span class="n">adjust_solution</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+<span class="n">domainDisc</span><span class="p">:</span><span class="n">assemble_linear</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+
+<span class="n">solver</span><span class="p">:</span><span class="n">init</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span>
+<span class="n">solver</span><span class="p">:</span><span class="n">apply</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+
+
+<span class="n">solFileName</span> <span class="o">=</span> <span class="s2">"sol_poisson_"</span><span class="o">..</span><span class="n">dim</span><span class="o">..</span><span class="s2">"d"</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"writing solution to '"</span> <span class="o">..</span> <span class="n">solFileName</span> <span class="o">..</span> <span class="s2">"'..."</span><span class="p">)</span>
+<span class="n">WriteGridFunctionToVTK</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">solFileName</span><span class="p">)</span>
+<span class="n">SaveVectorForConnectionViewer</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">solFileName</span> <span class="o">..</span> <span class="s2">".vec"</span><span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"done"</span><span class="p">)</span></code></pre></figure>
+
+    </div>
+  </div>
+
+  <footer class="ug-footer">
+
+  <div class="container px-1">
+    <div class="row justify-content-between">
+      <div class="col-lg-4 order-lg-2">
+        <p class="footer-text">
+          <a class="cf-a" href="/UG4Webpage/imprint">Imprint</a> | <a class="cf-a" href="/UG4Webpage/privacy">Privacy Declaration</a>
+        </p>
+      </div>
+      <div class="col-lg-8 order-lg-1">
+        <p class="copyright-text">
+          &copy 2009-2023 - Goethe Center for Scientific Computing, G-CSC, Goethe University Frankfurt
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script src="/UG4Webpage/assets/js/bootstrap.bundle.min.js"></script>
+  
+
+</footer>
+
+</body>
+
+</html>
