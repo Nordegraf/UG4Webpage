@@ -200,7 +200,7 @@ module Lua
 
       def read()
         entries = Dir.chdir(@base + @dir) do
-          Dir["*.{lua}"] + Dir["*"].select { |fn| File.directory?(fn) }
+          Dir["*.{lua}"].select { |fn| File.directory?(fn) }
         end
 
         @pages = entries.map do |entry|

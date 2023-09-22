@@ -13,14 +13,8 @@
   - name: Lua Scripting
     link: /tutorials/scripting
 
-  - name: Python Scripting
-    link: /tutorials/python
-
 - name: Documentation
   link: /docs
-
-- name: Development
-  link: /development
 
 - name: Publications
   link: /publications
