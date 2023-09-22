@@ -2,7 +2,7 @@ title: ug4.github.io
 owner: Goethe Center for Scientific Computing, G-CSC, Goethe University Frankfurt
 description: >- # this means to ignore newlines until "baseurl:"
 
-baseurl: /UG4Webpage # the subpath of your site, e.g. /blog
+baseurl:  # the subpath of your site, e.g. /blog
 url: "http://www.ug4.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 year_created: 2009
 
