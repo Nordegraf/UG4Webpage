@@ -30,7 +30,7 @@ Please clone the GitHub repository, e.g. by executing the following commands:
     cd $HOME
     git clone https://github.com/UG4/ughub
 
-This will download ughub to _$HOME/ughub_. You may of course clone the repository to any other location. Simply replace _$HOME/ughub_ with your path for the remainder of this introduction.
+This will download ughub to `$HOME/ughub`. You may of course clone the repository to any other location. Simply replace `$HOME/ughub` with your path for the remainder of this introduction.
 
 Please make sure to update your ughub installation from time to time by executing
 
@@ -38,7 +38,7 @@ Please make sure to update your ughub installation from time to time by executin
     git pull
 
 ### Installing ughub
-ughub should run out of the box. However, in order to execute it from any path, you should either edit your PATH environment variable by adding the following line to your `$HOME/.bash_profile` or `$HOME/.bashrc`` file
+ughub should run out of the box. However, in order to execute it from any path, you should either edit your PATH environment variable by adding the following line to your `$HOME/.bash_profile` or `$HOME/.bashrc` file
 
     export PATH=$PATH:$HOME/ughub
 
@@ -51,10 +51,10 @@ If you choose to edit your PATH variable, please make sure to reload your `.bash
 
     source $HOME/.bash_profile
 
-If you are interested in using auto-completion (in bash) while using ughub, add the following additional line to your $HOME/.bash_profile or $HOME/.bashrc file
+If you are interested in using auto-completion (in bash) while using ughub, add the following additional line to your `$HOME/.bash_profile` or `$HOME/.bashrc` file
 
     source $HOME/ughub/autocompletions/ughub-completion.bash
 
-and reload the file. Alternatively, you can place this line in `\~/.bash_completion`.
+and reload the file. Alternatively, you can place this line in `~/.bash_completion`.
 To use this in zsh, you need to use bashcompinit, see [here](https://stackoverflow.com/a/8492043).
-Autocomplete is also available for fish. To use this, copy `autocompletions/ughub-completion.fish` to `\~/.config/fish/completions/ughub.fish` (and reload your fish instance).
+Autocomplete is also available for fish. To use this, copy `autocompletions/ughub-completion.fish` to `~/.config/fish/completions/ughub.fish` (and reload your fish instance).
