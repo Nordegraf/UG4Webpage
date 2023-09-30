@@ -1,6 +1,0 @@
-[submodule "_lua_examples"]
-	path = _lua_examples
-	url = https://github.com/UG4/app_Tutorials.git
-[submodule "_lua_tutorials"]
-	path = _lua_tutorials
-	url = https://github.com/UG4/app_Examples.git
