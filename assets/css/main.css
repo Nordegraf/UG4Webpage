@@ -4,11 +4,17 @@ li.nav-item.ug-nav-item:hover { background-color: #339cff; }
 
 div.ug-navbar { background-color: #66b5ff; }
 
-img.banner { height: 15rem; width: 100%; object-fit: cover; }
+nav.navbar { max-width: 1200px; margin: auto; }
+
+div.content { max-width: 1200px; margin: auto; }
+
+.navbar-brand { padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; }
+
+img.banner { height: 25rem; width: 100%; object-fit: cover; }
 
 div.ugbanner { padding-left: 0; padding-right: 0; }
 
-div.ug-carousel-inner { height: 15rem; }
+div.ug-carousel-inner { height: 25rem; }
 
 p.ugabout { padding-top: 1rem; font-size: 1.2rem; }
 
@@ -63,6 +69,8 @@ a.subsideitem { color: black; text-decoration: none; }
 a.subsideitem:hover { text-decoration: underline; }
 
 div.subsideitem { padding: 0.2rem 0.2rem 0 0.7rem; }
+
+img.example { max-width: 200px; max-height: 200px; aspect-ratio: 1/1; margin: 5px; padding: 0; overflow: hidden; border-radius: 5px; object-fit: cover; }
 
 .highlight .hll { background-color: #ffffcc; }
 

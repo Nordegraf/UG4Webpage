@@ -32,167 +32,157 @@
 
   <body>
     <header>
-      <div class="ug-navbar">
-        <div class="container px-3">
-          <nav class="navbar navbar-expand-lg py-0 px-2">
-            <div class="position-relative p-0">
-              <a class="navbar-brand" href="/">ug4</a>
-              <button
-                class="navbar-toggler position-absolute"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <span class="navbar-toggler-icon"></span>
-              </button>
+      <div class="container-fluid ug-navbar">
+        <nav class="navbar navbar-expand-md py-0">
+          <div class="container-fluid p-0">
+            <a class="navbar-brand" href="/">ug4</a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav nav-fill w-100">
+                <li class="nav-item ug-nav-item active">
+                  <a class="nav-link active" aria-current="page" href="/"
+                    >About</a
+                  >
+                </li>
+
+                <li class="nav-item ug-nav-item">
+                  <a class="nav-link" href="/setup">Setup</a>
+                </li>
+
+                <li class="nav-item ug-nav-item">
+                  <a class="nav-link" href="/examples">Examples</a>
+                </li>
+
+                <li class="nav-item ug-nav-item dropdown">
+                  <a
+                    class="nav-link ug-nav-item dropdown-toggle"
+                    href="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Tutorials
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item" href="/tutorials/scripting"
+                        >Lua Scripting</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="nav-item ug-nav-item">
+                  <a class="nav-link" href="/docs">Documentation</a>
+                </li>
+
+                <li class="nav-item ug-nav-item">
+                  <a class="nav-link" href="/publications">Publications</a>
+                </li>
+              </ul>
             </div>
-            <div class="container p-0">
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav nav-fill w-100">
-                  <li class="nav-item ug-nav-item active">
-                    <a class="nav-link active" aria-current="page" href="/"
-                      >About</a
-                    >
-                  </li>
-
-                  <li class="nav-item ug-nav-item">
-                    <a class="nav-link" href="/setup">Setup</a>
-                  </li>
-
-                  <li class="nav-item ug-nav-item">
-                    <a class="nav-link" href="/examples">Examples</a>
-                  </li>
-
-                  <li class="nav-item ug-nav-item dropdown">
-                    <a
-                      class="nav-link ug-nav-item dropdown-toggle"
-                      href="#"
-                      role="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      Tutorials
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li>
-                        <a class="dropdown-item" href="/tutorials/scripting"
-                          >Lua Scripting</a
-                        >
-                      </li>
-                    </ul>
-                  </li>
-
-                  <li class="nav-item ug-nav-item">
-                    <a class="nav-link" href="/docs">Documentation</a>
-                  </li>
-
-                  <li class="nav-item ug-nav-item">
-                    <a class="nav-link" href="/publications">Publications</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </nav>
-        </div>
+          </div>
+        </nav>
       </div>
     </header>
 
-    <div class="container py-3">
-      <div class="container px-2 py-2">
-        <div class="container front ugbanner">
-          <div
-            id="Banner"
-            class="carousel slide carousel-fade"
-            data-bs-ride="carousel"
-          >
-            <div class="carousel-indicators">
-              <button
-                type="button"
-                data-bs-target="#Banner"
-                data-bs-slide-to="0"
-                aria-label="Adaptive Solution of the Elder problem"
-                class="active"
-                aria-current="true"
-              ></button>
+    <div class="ugbanner">
+      <div
+        id="Banner"
+        class="carousel slide carousel-fade"
+        data-bs-ride="carousel"
+      >
+        <div class="carousel-indicators">
+          <button
+            type="button"
+            data-bs-target="#Banner"
+            data-bs-slide-to="0"
+            aria-label="Adaptive Solution of the Elder problem"
+            class="active"
+            aria-current="true"
+          ></button>
 
-              <button
-                type="button"
-                data-bs-target="#Banner"
-                data-bs-slide-to="1"
-                aria-label="Simulations of fluid flow in a channel with a cylindrical cutout"
-              ></button>
+          <button
+            type="button"
+            data-bs-target="#Banner"
+            data-bs-slide-to="1"
+            aria-label="Simulations of fluid flow in a channel with a cylindrical cutout"
+          ></button>
+        </div>
+        <div class="carousel-inner ug-carousel-inner">
+          <div class="carousel-item active" data-bs-interval="9000">
+            <img
+              class="d-block w-100 banner"
+              src="/assets/img/banner/elder_adapt.png"
+              alt="Adaptive"
+              solution
+              of
+              the
+              Elder
+              problem
+            />
+            <div class="carousel-caption d-block d-print-block">
+              <span>Adaptive Solution of the Elder problem</span>
             </div>
-            <div class="carousel-inner ug-carousel-inner">
-              <div class="carousel-item active" data-bs-interval="9000">
-                <img
-                  class="d-block w-100 banner rounded"
-                  src="/assets/img/banner/elder_adapt.png"
-                  alt="Adaptive"
-                  solution
-                  of
-                  the
-                  Elder
-                  problem
-                />
-                <div class="carousel-caption d-block d-print-block">
-                  <span>Adaptive Solution of the Elder problem</span>
-                </div>
-              </div>
+          </div>
 
-              <div class="carousel-item" data-bs-interval="9000">
-                <img
-                  class="d-block w-100 banner rounded"
-                  src="/assets/img/banner/navier_stokes.png"
-                  alt="Simulations"
-                  of
-                  fluid
-                  flow
-                  in
-                  a
-                  channel
-                  with
-                  a
-                  cylindrical
-                  cutout
-                />
-                <div class="carousel-caption d-block d-print-block">
-                  <span
-                    >Simulations of fluid flow in a channel with a cylindrical
-                    cutout</span
-                  >
-                </div>
-              </div>
+          <div class="carousel-item" data-bs-interval="9000">
+            <img
+              class="d-block w-100 banner"
+              src="/assets/img/banner/navier_stokes.png"
+              alt="Simulations"
+              of
+              fluid
+              flow
+              in
+              a
+              channel
+              with
+              a
+              cylindrical
+              cutout
+            />
+            <div class="carousel-caption d-block d-print-block">
+              <span
+                >Simulations of fluid flow in a channel with a cylindrical
+                cutout</span
+              >
             </div>
-            <button
-              class="carousel-control-prev"
-              type="button"
-              data-bs-target="#Banner"
-              data-bs-slide="prev"
-            >
-              <span
-                class="carousel-control-prev-icon"
-                aria-hidden="true"
-              ></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button
-              class="carousel-control-next"
-              type="button"
-              data-bs-target="#Banner"
-              data-bs-slide="next"
-            >
-              <span
-                class="carousel-control-next-icon"
-                aria-hidden="true"
-              ></span>
-              <span class="visually-hidden">Next</span>
-            </button>
           </div>
         </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#Banner"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#Banner"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
 
+    <div class="container py-3">
+      <div class="container content py-2">
         <p class="ugabout">
           ug4 is a simulation framework, targeted at the solution of
           differential equations on unstructured hybrid grids in 1, 2 and 3
@@ -301,17 +291,17 @@
         <div class="row justify-content-center">
           <div class="col-lg-3">
             <img
-              src="/assets/img/kaust.png"
+              src="/assets/img/goethe.png"
               class="img-fluid ug-collaborator w-100 mx-auto d-block"
-              alt="KAUST Logo"
+              alt="Goethe University Frankfurt Logo"
             />
           </div>
 
           <div class="col-lg-3">
             <img
-              src="/assets/img/goethe.png"
+              src="/assets/img/kaust.png"
               class="img-fluid ug-collaborator w-100 mx-auto d-block"
-              alt="Goethe University Frankfurt Logo"
+              alt="KAUST Logo"
             />
           </div>
         </div>
@@ -328,10 +318,7 @@
             </p>
           </div>
           <div class="col-lg-8 order-lg-1">
-            <p class="copyright-text">
-              &copy 2009-2023 - Goethe Center for Scientific Computing, G-CSC,
-              Goethe University Frankfurt
-            </p>
+            <p class="copyright-text">&copy 2009-2023 - UG4 Developers</p>
           </div>
         </div>
       </div>

@@ -19,7 +19,7 @@
     <meta property="og:type" content="article" />
     <meta
       property="article:published_time"
-      content="2023-09-30T22:11:44+00:00"
+      content="2023-10-10T08:33:52+00:00"
     />
     <meta name="twitter:card" content="summary" />
     <meta property="twitter:title" content="Development" />
@@ -27,8 +27,8 @@
       {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
-        "dateModified": "2023-09-30T22:11:44+00:00",
-        "datePublished": "2023-09-30T22:11:44+00:00",
+        "dateModified": "2023-10-10T08:33:52+00:00",
+        "datePublished": "2023-10-10T08:33:52+00:00",
         "description": "Introduction for C++ Programmers",
         "headline": "Development",
         "mainEntityOfPage": {
@@ -47,74 +47,70 @@
 
   <body>
     <header>
-      <div class="ug-navbar">
-        <div class="container px-3">
-          <nav class="navbar navbar-expand-lg py-0 px-2">
-            <div class="position-relative p-0">
-              <a class="navbar-brand" href="/">ug4</a>
-              <button
-                class="navbar-toggler position-absolute"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <span class="navbar-toggler-icon"></span>
-              </button>
+      <div class="container-fluid ug-navbar">
+        <nav class="navbar navbar-expand-md py-0">
+          <div class="container-fluid p-0">
+            <a class="navbar-brand" href="/">ug4</a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav nav-fill w-100">
+                <li class="nav-item ug-nav-item">
+                  <a class="nav-link" href="/">About</a>
+                </li>
+
+                <li class="nav-item ug-nav-item">
+                  <a class="nav-link" href="/setup">Setup</a>
+                </li>
+
+                <li class="nav-item ug-nav-item">
+                  <a class="nav-link" href="/examples">Examples</a>
+                </li>
+
+                <li class="nav-item ug-nav-item dropdown">
+                  <a
+                    class="nav-link ug-nav-item dropdown-toggle"
+                    href="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Tutorials
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item" href="/tutorials/scripting"
+                        >Lua Scripting</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="nav-item ug-nav-item">
+                  <a class="nav-link" href="/docs">Documentation</a>
+                </li>
+
+                <li class="nav-item ug-nav-item">
+                  <a class="nav-link" href="/publications">Publications</a>
+                </li>
+              </ul>
             </div>
-            <div class="container p-0">
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav nav-fill w-100">
-                  <li class="nav-item ug-nav-item">
-                    <a class="nav-link" href="/">About</a>
-                  </li>
-
-                  <li class="nav-item ug-nav-item">
-                    <a class="nav-link" href="/setup">Setup</a>
-                  </li>
-
-                  <li class="nav-item ug-nav-item">
-                    <a class="nav-link" href="/examples">Examples</a>
-                  </li>
-
-                  <li class="nav-item ug-nav-item dropdown">
-                    <a
-                      class="nav-link ug-nav-item dropdown-toggle"
-                      href="#"
-                      role="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      Tutorials
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li>
-                        <a class="dropdown-item" href="/tutorials/scripting"
-                          >Lua Scripting</a
-                        >
-                      </li>
-                    </ul>
-                  </li>
-
-                  <li class="nav-item ug-nav-item">
-                    <a class="nav-link" href="/docs">Documentation</a>
-                  </li>
-
-                  <li class="nav-item ug-nav-item">
-                    <a class="nav-link" href="/publications">Publications</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </nav>
-        </div>
+          </div>
+        </nav>
       </div>
     </header>
 
     <div class="container py-3">
-      <div class="container px-2 py-2">
+      <div class="container py-2 content">
         Introduction for C++ Programmers This page intends to give a starting
         point for people who want to work with ug4's source code. It introduces
         some of the most important classes and concepts and provides links to
@@ -135,10 +131,7 @@
             </p>
           </div>
           <div class="col-lg-8 order-lg-1">
-            <p class="copyright-text">
-              &copy 2009-2023 - Goethe Center for Scientific Computing, G-CSC,
-              Goethe University Frankfurt
-            </p>
+            <p class="copyright-text">&copy 2009-2023 - UG4 Developers</p>
           </div>
         </div>
       </div>
