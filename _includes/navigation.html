@@ -1,37 +1,33 @@
-<div class="ug-navbar">
-<div class="container px-3">
-<nav class="navbar navbar-expand-lg py-0 px-2">
-    <div class="position-relative p-0">
+<div class="container-fluid ug-navbar">
+<nav class="navbar navbar-expand-md py-0">
+    <div class="container-fluid p-0">
       <a class="navbar-brand" href="{{ "/" | relative_url }}">ug4</a>
-      <button class="navbar-toggler position-absolute" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
       </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav nav-fill w-100">
+            {% for item in site.data.navigation %}
+            {% if item.dropdown %}
+            <li class="nav-item ug-nav-item dropdown{% if page.url contains item.sublink %} active{% endif %}">
+              <a class="nav-link ug-nav-item dropdown-toggle{% if page.url contains item.sublink %} active{% endif %}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ item.name }}
+              </a>
+              <ul class="dropdown-menu">
+                {% for subitem in item.dropdown %}
+                <li><a class="dropdown-item{% if page.url == subitem.link %} active{% endif %}" href="{{ subitem.link | prepend: site.baseurl }}">{{ subitem.name }}</a></li>
+                {% endfor %}
+              </ul>
+            </li>
+          {% else %}
+            <li class="nav-item ug-nav-item {% if page.url == item.link %} active{% endif %}">
+              <a class="nav-link {% if page.url == item.link %} active" aria-current="page{% endif %}" href="{{ item.link | prepend: site.baseurl }}">{{ item.name }}</a>
+            </li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
     </div>
-  <div class="container p-0">
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav nav-fill w-100">
-          {% for item in site.data.navigation %}
-          {% if item.dropdown %}
-          <li class="nav-item ug-nav-item dropdown{% if page.url contains item.sublink %} active{% endif %}">
-            <a class="nav-link ug-nav-item dropdown-toggle{% if page.url contains item.sublink %} active{% endif %}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              {{ item.name }}
-            </a>
-            <ul class="dropdown-menu">
-              {% for subitem in item.dropdown %}
-              <li><a class="dropdown-item{% if page.url == subitem.link %} active{% endif %}" href="{{ subitem.link | prepend: site.baseurl }}">{{ subitem.name }}</a></li>
-              {% endfor %}
-            </ul>
-          </li>
-        {% else %}
-          <li class="nav-item ug-nav-item {% if page.url == item.link %} active{% endif %}">
-            <a class="nav-link {% if page.url == item.link %} active" aria-current="page{% endif %}" href="{{ item.link | prepend: site.baseurl }}">{{ item.name }}</a>
-          </li>
-        {% endif %}
-        {% endfor %}
-      </ul>
-    </div>
-  </div>
 </nav>
-</div>
 </div>

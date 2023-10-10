@@ -1,8 +1,8 @@
 ---
-layout: default
+layout: index
 ---
 
-<div class="container front ugbanner">
+<div class="ugbanner">
   <div id="Banner" class="carousel slide carousel-fade" data-bs-ride="carousel">
     <div class="carousel-indicators">
       {% for banner in site.data.banner %}
@@ -15,7 +15,7 @@ layout: default
 
       {% for banner in site.data.banner %}
       <div class="carousel-item {% if forloop.first %} active {% endif %}" data-bs-interval="9000">
-        <img class="d-block w-100 banner rounded" src="{{ banner.img | relative_url }}" alt={{ banner.alt }}>
+        <img class="d-block w-100 banner" src="{{ banner.img | relative_url }}" alt={{ banner.alt }}>
         <div class="carousel-caption d-block d-print-block">
           <span>{{ banner.description }}</span>
         </div>
@@ -33,6 +33,8 @@ layout: default
   </div>
 </div>
 
+<div class="container py-3">
+<div class="container content py-2">
 <p class="ugabout">
   ug4 is a simulation framework, targeted at the solution of differential equations on unstructured hybrid grids in 1, 2
   and 3 dimensions on systems reaching from laptops to massively parallel systems. ug4 is written in C++, striving for a
@@ -115,4 +117,7 @@ layout: default
       alt="{{ c.name }} Logo">
   </div>
   {% endfor %}
+</div>
+
+</div>
 </div>

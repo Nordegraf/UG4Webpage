@@ -1,5 +1,5 @@
 title: ug4.github.io
-owner: Goethe Center for Scientific Computing, G-CSC, Goethe University Frankfurt
+owner: UG4 Developers
 description: >- # this means to ignore newlines until "baseurl:"
 
 baseurl:  # the subpath of your site, e.g. /blog
@@ -31,6 +31,9 @@ collections:
   pages:
     output: true
     permalink: /:path
+  examples:
+    output: true
+    permalink: /:collection/:name
 
 jekyll_get_json:
   - data: releases
